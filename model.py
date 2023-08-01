@@ -2,22 +2,19 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 import os
-# import pandas as pd
 import matplotlib.pyplot as plt 
 import base64
 from PIL import Image
 import io
-# import math 
+import math
 from math import sqrt
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # %matplotlib inline
 
 global embed
 embed = hub.KerasLayer("https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4")
-
-# for x in os.listdir("."):
-#     print(x)
 
 class TensorVector(object):
 
@@ -53,15 +50,8 @@ def convertBase64(FileName):
     return np.array(image)
 
 # plt.imshow(convertBase64("image.jpg"))
+# plt.show()
 
-helper1 = TensorVector("image.jpg")
-vector = helper1.process()
-
-# plt.imshow(convertBase64("image2.jpg"))
-
-helper2 = TensorVector("predict2/20230724_171415.jpg")
-vector2 = helper2.process()
-# print(vector2)
 
 def cosineSim(a1,a2):
     sum = 0
@@ -74,12 +64,44 @@ def cosineSim(a1,a2):
     cosine_sim = sum / ((sqrt(suma1))*(sqrt(sumb1)))
     return cosine_sim
 
-print(cosineSim(vector, vector2))
+#variables
+folder_images = "predict2"
 
-list = [(TensorVector(f"predict2/{i}").process()) for i in os.listdir("predict2")]
+#predict single image
+def predictSingleSimilar(image1, image2):   
+    helper1 = TensorVector(image1)
+    vector1 = helper1.process()
+    helper2 = TensorVector(image2)
+    vector2 = helper2.process()
+    return ({
+            "index":0,
+            "image":[image1, image2],
+            # "result":"{:.2f}".format(cosineSim(vector1, vector2)),
+            "result":"{:.2f}".format(cosineSim(vector1, vector2)),
+        })
+    
+print(predictSingleSimilar("image.jpg", "predict2/20230724_170942.jpg"))
+# print("{:.2f}".format(0.4905378590817321))
 
-def predict_any_similar(list):   
-    for index in range(len(list)):
-        print(f"{index} {cosineSim(vector, list[index])}")
+#create and return images, image vectors
+listImagesAndVector = [
+    {"images":f"{folder_images}/{i}","vectors":np.array(TensorVector(f"{folder_images}/{i}").process())}
+    for i in os.listdir(folder_images)
+    ]
 
-# predict_any_similar(list)
+# print(listImagesAndVector)
+
+def predictMultipleSimilar(image,arr):   
+    helper1 = TensorVector(image)
+    vector = helper1.process()
+    result = []
+    for index in range(len(arr)):
+        result.append({
+            "index":index,
+            "image":arr[index].get('images'),
+            "result":cosineSim(vector, arr[index].get('vectors')),
+        })
+    return result
+         
+# print(predictMultipleSimilar(arr=listImagesAndVector, image="image.jpg"))
+
