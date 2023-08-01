@@ -14,7 +14,7 @@ predict2/original-image.jpg
 ### 0
 predict2/20230724_170942.jpg
 #### result(0.9707267506075503)
-![compare to](https://github.com/alvitoZ/test-predict-image/blob/master//20230724_170942.jpg)
+![compare to](https://github.com/alvitoZ/test-predict-image/blob/master/predict2/20230724_170942.jpg)
 
 ### 1
 predict2/20230724_171159.jpg
