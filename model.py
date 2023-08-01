@@ -8,13 +8,16 @@ from PIL import Image
 import io
 import math
 from math import sqrt
+import json
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # %matplotlib inline
 
 global embed
-embed = hub.KerasLayer("https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4")
+# embed = hub.KerasLayer("https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4")
+embed = hub.KerasLayer("tf2-preview_mobilenet_v2_feature_vector_4")
+
 
 class TensorVector(object):
 
@@ -64,8 +67,14 @@ def cosineSim(a1,a2):
     cosine_sim = sum / ((sqrt(suma1))*(sqrt(sumb1)))
     return cosine_sim
 
-#variables
-folder_images = "predict2"
+#validate result
+def validate(value):
+    message = value
+    if(value >= 0.5):
+        value
+    else:
+        message = "not similar"
+    return message
 
 #predict single image
 def predictSingleSimilar(image1, image2):   
@@ -73,15 +82,23 @@ def predictSingleSimilar(image1, image2):
     vector1 = helper1.process()
     helper2 = TensorVector(image2)
     vector2 = helper2.process()
-    return ({
+    return json.dumps({
             "index":0,
             "image":[image1, image2],
+            "result":validate(cosineSim(vector1, vector2)),
             # "result":"{:.2f}".format(cosineSim(vector1, vector2)),
-            "result":"{:.2f}".format(cosineSim(vector1, vector2)),
         })
-    
-print(predictSingleSimilar("image.jpg", "predict2/20230724_170942.jpg"))
-# print("{:.2f}".format(0.4905378590817321))
+
+# x = str(input("input image 1 : "))
+# y = str(input("input image 2 : "))
+# print(predictSingleSimilar("image.jpg", "predict2/20230724_170942.jpg"))
+# print(predictSingleSimilar(x, y))
+
+
+#variables
+# folder_images = "predict2"
+x = str(input("input 1 image for compare : "))
+folder_images = str(input("input image folder : "))
 
 #create and return images, image vectors
 listImagesAndVector = [
@@ -99,9 +116,11 @@ def predictMultipleSimilar(image,arr):
         result.append({
             "index":index,
             "image":arr[index].get('images'),
-            "result":cosineSim(vector, arr[index].get('vectors')),
+            "result":validate(cosineSim(vector, arr[index].get('vectors'))),
         })
-    return result
+    return json.dumps(result)
          
+
 # print(predictMultipleSimilar(arr=listImagesAndVector, image="image.jpg"))
+print(predictMultipleSimilar(x, listImagesAndVector))
 
