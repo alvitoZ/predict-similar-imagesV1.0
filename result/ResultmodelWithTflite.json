@@ -1,0 +1,73 @@
+[
+  {
+    "index": 0,
+    "image": "predict2/20230724_170942.jpg",
+    "result": 0.9707264732572438
+  },
+  {
+    "index": 1,
+    "image": "predict2/20230724_171159.jpg",
+    "result": 0.7248920651964825
+  },
+  {
+    "index": 2,
+    "image": "predict2/20230724_171327.jpg",
+    "result": 0.7251683993804132
+  },
+  {
+    "index": 3,
+    "image": "predict2/20230724_171415.jpg",
+    "result": 0.5905370194705238
+  },
+  {
+    "index": 4,
+    "image": "predict2/20230724_171440.jpg",
+    "result": 0.5856917667349563
+  },
+  {
+    "index": 5,
+    "image": "predict2/20230724_171700.jpg",
+    "result": 0.5978820593737397
+  },
+  {
+    "index": 6,
+    "image": "predict2/20230724_171706.jpg",
+    "result": 0.8785900965110167
+  },
+  {
+    "index": 7,
+    "image": "predict2/20230724_171712.jpg",
+    "result": 0.5699588290667539
+  },
+  {
+    "index": 8,
+    "image": "predict2/20230724_171743.jpg",
+    "result": 0.6079825036602535
+  },
+  {
+    "index": 9,
+    "image": "predict2/20230724_171746.jpg",
+    "result": 0.8599074028548168
+  },
+  {
+    "index": 10,
+    "image": "predict2/20230724_171750.jpg",
+    "result": 0.6095829455199847
+  },
+  {
+    "index": 11,
+    "image": "predict2/IMG_20230724_170735.jpg",
+    "result": 0.7458999960033457
+  },
+  {
+    "index": 12,
+    "image": "predict2/IMG_20230724_170751.jpg",
+    "result": 0.9537293211440864
+  },
+  {
+    "index": 13,
+    "image": "predict2/IMG_20230724_170806.jpg",
+    "result": 0.7728450070205946
+  },
+  { "index": 14, "image": "predict2/original-image.jpg", "result": 1.0 }
+]

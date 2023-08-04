@@ -2,19 +2,19 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt 
 import json
-from mypackage import convertBase64, cosineSim, TensorVector, validate
 
-#show image
-plt.imshow(convertBase64("image.jpg"))
-plt.show()
+from mypackage import convertBase64, cosineSim, TensorVectorWithTFLITE, validate
+
+# plt.imshow(convertBase64("image.jpg"))
+# plt.show()
 
 
 #beginning predict single similar images
 #predict single image
 def predictSingleSimilar(image1, image2):   
-    helper1 = TensorVector(image1)
+    helper1 = TensorVectorWithTFLITE(image1)
     vector1 = helper1.process()
-    helper2 = TensorVector(image2)
+    helper2 = TensorVectorWithTFLITE(image2)
     vector2 = helper2.process()
     return json.dumps({
             "index":0,
@@ -41,13 +41,13 @@ folder_images = "predict2"
 
 #create and return images, image vectors
 listImagesAndVector = [
-    {"images":f"{folder_images}/{i}","vectors":np.array(TensorVector(f"{folder_images}/{i}").process())}
+    {"images":f"{folder_images}/{i}","vectors":np.array(TensorVectorWithTFLITE(f"{folder_images}/{i}").process())}
     for i in os.listdir(folder_images)
     ]
 
 #predict multiple similar images
 def predictMultipleSimilar(image,arr):   
-    helper1 = TensorVector(image)
+    helper1 = TensorVectorWithTFLITE(image)
     vector = helper1.process()
     result = []
     for index in range(len(arr)):
