@@ -1,5 +1,5 @@
 # predict-similar-imagesV1.0
-cuma machine learning yang bisa tau apakah gambarnya sama atau beda
+Predict similarity of images by calculate the vector
 
 
 # test-predict-image
