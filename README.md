@@ -1,5 +1,5 @@
 # predict-similar-imagesV1.0
-Predict similarity of images by calculate the vector
+get vector image for calculate similariy
 
 
 # test-predict-image
